@@ -13,10 +13,10 @@ function Body() {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.json();
+        return response.json(); // Convert the response to JSON only once
       })
       .then(data => {
-        if (data.articles) {
+        if (data.articles && data.articles.length > 0) {
           setArticles(data.articles);
           setFilteredArticles(data.articles);
         } else {
@@ -25,7 +25,7 @@ function Body() {
       })
       .catch(error => console.error('Error fetching the articles:', error));
   }, []);
-
+  
   const handleSearch = (searchTerm) => {
     const filtered = articles.filter(article =>
       article.title.toLowerCase().includes(searchTerm.toLowerCase())
